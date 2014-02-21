@@ -1,3 +1,9 @@
-aller go
-souvenir remember
-faire make do
+aller,to go
+souvenir,to remember
+faire,make,do
+je,i
+veux,want
+au,to the
+stade,stadium
+
+
