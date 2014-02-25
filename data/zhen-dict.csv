@@ -32,7 +32,7 @@
 的,preposition,of,1,1
 的,noun,aim,1,2
 的,adverb,really and truly,1,2
-的,particle,possessive particle,1,2
+的,particle,<possessive particle>,1,2
 的,axiliary verb,ablative cause suffix,1,2
 的,suffix,-self,1,2
 李娜,noun,Li Na,0,0
@@ -107,7 +107,7 @@
 可,conjunction,but,1,2
 可,conjunction,yet,1,2
 可,adverb,certainly,1,2
-可,particle,particle used for emphasis,1,2
+可,particle,<particle used for emphasis>,1,2
 算是,auxiliary verb,be,1,1
 言行不一,noun,words and deeds,1,1
 特大,adjective,especially big,1,1
@@ -129,7 +129,7 @@
 基础,noun,foundation,1,1
 基础,noun,base,1,1
 基础,noun,hard plan,2,2
-基础,adjective,adjective,1,2
+基础,adjective,basal,1,2
 设施,noun,facility,1,1
 设施,noun,installation,2,2
 和,conjunction,and,1,1
@@ -551,8 +551,8 @@
 得,adjective,ready,1,2
 得,adjective,suitable,1,2
 得,auxiliary verb,ought to,1,2
-得,particle,particle showing degree,1,2
-得,particle,particle showing responsibility,1,2
+得,particle,<particle showing degree>,1,2
+得,particle,<particle showing responsibility>,1,2
 很,adverb,very,1,1
 很,adverb,quite,2,2
 很,adverb,spanking,2,2

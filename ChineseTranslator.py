@@ -42,6 +42,8 @@ class ChineseTranslator:
           pos = 'N'
         elif pos == 'auxiliary verb':
           pos = 'V'
+        elif pos == 'particle':
+          pos = 'DE'
         d[tokens[0]][pos].append(tokens[2])
 
     return d
@@ -70,7 +72,7 @@ class ChineseTranslator:
       # Get first char of tag since we only care about simplified tags
       if pos[0:2] == 'DE':
         # Ignore decorators for now
-        pos = -1
+        pos = 'DE'
       else: 
         pos = pos[0]
       if dictionary[token].has_key(pos):
