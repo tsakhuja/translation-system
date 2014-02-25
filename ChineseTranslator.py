@@ -8,7 +8,8 @@ import pickle
 class ChineseTranslator:
   """Translates english to chinese"""
 
-  def __init__(self):
+  def __init__(self, verbose):
+    self.verbose = verbose
     self.dictionary = self.load_dictionary('data/zhen-dict.csv')
     self.pos_tagger = self.trained_pos_tagger();
     self.stanford_tagger = POSTagger('chinese-distsim.tagger', 'stanford-postagger.jar') 
@@ -52,8 +53,8 @@ class ChineseTranslator:
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
-    return self.direct_translate(sentence, self.dictionary)
-    #return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
+    # return self.direct_translate(sentence, self.dictionary)
+    return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
 
   def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
@@ -61,8 +62,9 @@ class ChineseTranslator:
     * sentence is a list of words or characters
     """
     sentence = tagger.tag(sentence)
-    print_sentence = [' '.join(x) for x in sentence]
-    print ' '.join(print_sentence).decode('utf-8')
+    if self.verbose:
+      print_sentence = [' '.join(x) for x in sentence]
+      print ' '.join(print_sentence).decode('utf-8')
     if tagger == self.stanford_tagger:
       # correct weird word#POS format
       correct_sentence = []
@@ -111,7 +113,6 @@ class ChineseTranslator:
     translated_sentence = []
     for token in sentence:
       try:
-        
         translated_word = dictionary[token].values()[0][0][0]
       except:
         translated_word = token

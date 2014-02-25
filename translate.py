@@ -6,7 +6,7 @@ def main():
   if len(sys.argv) > 1 and sys.argv[1] == '-v':
     verbose = True
 
-  translator = ChineseTranslator()
+  translator = ChineseTranslator(verbose)
   with open('data/dev-set.txt') as f:
     for line in f:
       sentence = line.split()
