@@ -35,7 +35,7 @@ class ChineseTranslator:
         elif pos == 'preposition':
           pos = 'P'
         elif pos == 'adverb':
-          pos = 'D'
+          pos = 'AD'
         elif pos == 'conjunction':
           pos = 'T'
         elif pos == 'pronoun':
@@ -61,8 +61,8 @@ class ChineseTranslator:
     * sentence is a list of words or characters
     """
     sentence = tagger.tag(sentence)
-    print_sentence = [' '.join(x) for x in sentence]
-    print ' '.join(print_sentence).decode('utf-8')
+    # print_sentence = [' '.join(x) for x in sentence]
+    # print ' '.join(print_sentence).decode('utf-8')
     if tagger == self.stanford_tagger:
       # correct weird word#POS format
       correct_sentence = []
@@ -77,8 +77,14 @@ class ChineseTranslator:
       if pos[0:2] == 'DE':
         # Special case for decorator tags
         pos = 'DE'
-      elif pos[0:2] == 'VA':
+      elif pos == 'VA':
         pos = 'VA'
+      elif pos == 'AD':
+        # special case for adverb
+        pos = 'AD'
+      elif pos == 'PN':
+        # special case for pronoun
+        pos = 'N'
       else: 
         pos = pos[0]
       if dictionary[token].has_key(pos):
