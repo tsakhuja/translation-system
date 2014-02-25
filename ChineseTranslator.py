@@ -31,7 +31,7 @@ class ChineseTranslator:
         elif pos == 'verb':
           pos = 'V'
         elif pos == 'adjective':
-          pos = 'A'
+          pos = 'VA'
         elif pos == 'preposition':
           pos = 'P'
         elif pos == 'adverb':
@@ -44,14 +44,16 @@ class ChineseTranslator:
           pos = 'V'
         elif pos == 'particle':
           pos = 'DE'
-        d[tokens[0]][pos].append(tokens[2])
+        d[tokens[0]][pos].append((tokens[2],int(tokens[3]),int(tokens[4])))
 
     return d
+
+    
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
-    return self.translate_with_pos(sentence, self.pos_tagger, self.dictionary)
+    return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
 
   def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
@@ -59,6 +61,8 @@ class ChineseTranslator:
     * sentence is a list of words or characters
     """
     sentence = tagger.tag(sentence)
+    print_sentence = [' '.join(x) for x in sentence]
+    print ' '.join(print_sentence).decode('utf-8')
     if tagger == self.stanford_tagger:
       # correct weird word#POS format
       correct_sentence = []
@@ -73,14 +77,21 @@ class ChineseTranslator:
       if pos[0:2] == 'DE':
         # Special case for decorator tags
         pos = 'DE'
+      elif pos[0:2] == 'VA':
+        pos = 'VA'
       else: 
         pos = pos[0]
       if dictionary[token].has_key(pos):
-        translated_word = dictionary[token][pos][0]
+        translated_word = dictionary[token][pos][0][0]
       else:
         # Fall back on any translation of word, even if not correct POS
         try:
-          translated_word = dictionary[token].values()[0][0]
+          #translated_word = dictionary[token].values()[0][0]
+          candidate_list = []
+          for part_of_speech, translations in dictionary[token].iteritems():
+            candidate_list.append(translations[0])
+          candidate_list = sorted(candidate_list, key=lambda rank: rank[2])
+          translated_word = candidate_list[0][0]
         except:
           translated_word = token
       translated_sentence.append(translated_word)
