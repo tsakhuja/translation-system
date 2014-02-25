@@ -7,7 +7,7 @@ def main():
     verbose = True
 
   translator = ChineseTranslator()
-  with open('data/dev-set.txt') as f:
+  with open('data/test-set.txt') as f:
     for line in f:
       sentence = line.split()
       if verbose:
