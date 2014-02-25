@@ -52,8 +52,8 @@ class ChineseTranslator:
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
-    # return self.direct_translate(sentence, self.dictionary)
-    return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
+    return self.direct_translate(sentence, self.dictionary)
+    #return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
 
   def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
@@ -61,8 +61,8 @@ class ChineseTranslator:
     * sentence is a list of words or characters
     """
     sentence = tagger.tag(sentence)
-    # print_sentence = [' '.join(x) for x in sentence]
-    # print ' '.join(print_sentence).decode('utf-8')
+    print_sentence = [' '.join(x) for x in sentence]
+    print ' '.join(print_sentence).decode('utf-8')
     if tagger == self.stanford_tagger:
       # correct weird word#POS format
       correct_sentence = []
@@ -108,6 +108,18 @@ class ChineseTranslator:
     return translated_sentence
 
   def direct_translate(self, sentence, dictionary):
+    translated_sentence = []
+    for token in sentence:
+      try:
+        
+        translated_word = dictionary[token].values()[0][0][0]
+      except:
+        translated_word = token
+      translated_sentence.append(translated_word)
+
+    return translated_sentence
+
+  def direct_freq_translate(self, sentence, dictionary):
     """ 
     * Translates sentence in a completely direct fashion.
     * sentence is a list of words or characters
@@ -115,7 +127,12 @@ class ChineseTranslator:
     translated_sentence = []
     for token in sentence:
       try:
-        translated_word = dictionary[token].values()[0][0]
+        #translated_word = dictionary[token].values()[0][0]
+        candidate_list = []
+        for part_of_speech, trans in dictionary[token].iteritems():
+          candidate_list.append(trans[0])
+        candidate_list = sorted(candidate_list, key=lambda rank: rank[2])
+        translated_word = candidate_list[0][0]
       except:
         translated_word = token
       translated_sentence.append(translated_word)
