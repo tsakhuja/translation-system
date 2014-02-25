@@ -1,6 +1,7 @@
 import nltk
 from nltk.corpus import sinica_treebank
 from collections import defaultdict
+from nltk.tag.stanford import POSTagger
 import pickle
 
 #TODO Implement Chinese->English direct translation system
@@ -10,6 +11,7 @@ class ChineseTranslator:
   def __init__(self):
     self.dictionary = self.load_dictionary('data/zhen-dict.csv')
     self.pos_tagger = self.trained_pos_tagger();
+    self.stanford_tagger = POSTagger('chinese-distsim.tagger', 'stanford-postagger.jar') 
 
   def trained_pos_tagger(self):
     return pickle.load(open("sinica_treebank_brill_aubt.pickle"))
@@ -47,16 +49,30 @@ class ChineseTranslator:
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
-    return self.translate_with_pos(sentence, self.dictionary)
+    return self.translate_with_pos(sentence, self.pos_tagger, self.dictionary)
 
-  def translate_with_pos(self, sentence, dictionary):
+  def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
     * Translates sentence in a POS-aware fashion.
     * sentence is a list of words or characters
     """
-    sentence = self.pos_tagger.tag(sentence)
+    sentence = tagger.tag(sentence)
+    if tagger == self.stanford_tagger:
+      # correct weird word#POS format
+      correct_sentence = []
+      for blank, wordpos in sentence:
+        wordsplit = wordpos.split('#')
+        correct_sentence.append((wordsplit[0], wordsplit[1]))
+      sentence = correct_sentence
+    # print sentence
     translated_sentence = []
     for token, pos in sentence:
+      # Get first char of tag since we only care about simplified tags
+      if pos[0:2] == 'DE':
+        # Ignore decorators for now
+        pos = -1
+      else: 
+        pos = pos[0]
       if dictionary[token].has_key(pos):
         translated_word = dictionary[token][pos][0]
       else:
