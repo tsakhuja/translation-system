@@ -37,7 +37,7 @@ class ChineseTranslator:
         elif pos == 'adverb':
           pos = 'AD'
         elif pos == 'conjunction':
-          pos = 'T'
+          pos = 'CC'
         elif pos == 'pronoun':
           pos = 'N'
         elif pos == 'auxiliary verb':
@@ -85,6 +85,9 @@ class ChineseTranslator:
       elif pos == 'PN':
         # special case for pronoun
         pos = 'N'
+      elif pos == 'CC' or pos == 'CS':
+        # special case for conjunction
+        pos = 'CC'
       else: 
         pos = pos[0]
       if dictionary[token].has_key(pos):
