@@ -71,7 +71,7 @@ class ChineseTranslator:
     for token, pos in sentence:
       # Get first char of tag since we only care about simplified tags
       if pos[0:2] == 'DE':
-        # Ignore decorators for now
+        # Special case for decorator tags
         pos = 'DE'
       else: 
         pos = pos[0]
