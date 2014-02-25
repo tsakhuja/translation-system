@@ -1,13 +1,14 @@
-#import nltk
+import nltk
+from collections import defaultdict
 
 #TODO Implement Chinese->English direct translation system
 
 def load_dictionary(filename):
-  d = {}
+  d = defaultdict(list)
   with open(filename) as f:
     for line in f:
        tokens = line.rstrip().split(',')
-       d[tokens[0]] = tokens[1:]
+       d[tokens[0]].append(tokens[2])
 
   return d
 
@@ -17,38 +18,23 @@ def direct_translate(sentence, dictionary):
   * sentence is a list of words or characters
   """
   translated_sentence = []
-  lower_bound = 0
-  length = 1
-  best_match = None
-  while lower_bound < len(sentence):
+  for token in sentence:
     try:
-      print sentence[lower_bound:lower_bound + length]
-      print (lower_bound,length)
-      translated_word = dictionary[''.join(sentence[lower_bound:lower_bound + length])][0]
+      translated_word = dictionary[token][0]
     except:
-      lower_bound += 1
-      length = 1
-      if best_match:
-        translated_sentence.append(best_match)
-    else:
-      best_match = translated_word
-      if lower_bound == len(sentence) - 1:
-        translated_sentence.append(best_match)
-        break
-
-      length += 1
+      translated_word = token
+    translated_sentence.append(translated_word)
 
   return translated_sentence
 
 
 
 def main():
-  dictionary = load_dictionary('data/test-dict.txt')
-  print dictionary
-  with open('data/test-corpus.txt') as f:
+  dictionary = load_dictionary('data/zhen-dict.csv')
+  with open('data/dev-set.txt') as f:
     for line in f:
       sentence = line.split()
-      print sentence
+      print ' '.join(sentence)
       print ' '.join(direct_translate(sentence, dictionary))
 
 

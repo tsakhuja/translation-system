@@ -36,7 +36,6 @@
 的,axiliary verb,ablative cause suffix,1,2
 的,suffix,-self,1,2
 李娜,noun,Li Na,0,0
-，,punctuation,",",1,1
 还是,conjunction,or,1,1
 还是,conjunction,still,1,1
 还是,adverb,nevertheless,2,2
@@ -193,7 +192,6 @@
 效益,noun,benefit,1,1
 效益,noun,beneficial result,2,2
 天津,noun,Tianjin,0,0
-、,punctuation,",",1,1
 八一,noun,Eighty-one,0,0
 是,auxiliary verb,be,1,1
 是,verb,be,1,1
@@ -667,3 +665,130 @@
 我们,pronoun,we,1,1
 我们,pronoun,us,1,1
 我们,pronoun,ourselves,2,2
+发挥,verb,exert,1,1
+发挥,verb,bring into play,2,2
+发挥,verb,unleash,2,2
+发挥,verb,bring to bear,2,2
+发挥,noun,exertion,1,2
+发挥,noun,eduction,1,2
+不错,adjective,pretty good,1,1
+不错,adjective,not bad,1,1
+不错,adjective,right,1,1
+不错,adjective,correct,2,2
+不错,adverb,orderly,1,2
+只可惜,adverb,unfortunately,1,1
+后,adverb,after,1,1
+后,adverb,later,2,2
+后,adverb,afterwards,3,3
+后,adverb,afterward ,3,3
+后,noun,rear,1,2
+后,noun,behind,2,3
+后,noun,back,1,2
+后,noun,queen,2,3
+后,noun,empress,2,3
+后,noun,offspring,2,3
+后,adjective,hind,1,3
+后,adjective,hinder,1,3
+后劲,noun,stamina,1,1
+后劲,noun,aftershock,2,2
+后劲,noun,after-effect,2,2
+不足,adjective,insufficient,1,1
+不足,adjective,inadequate,2,2
+不足,adjective,short,2,2
+不足,adjective,lacking,3,3
+不足,adjective,not worth,3,3
+不足,noun,shortage,1,2
+不足,noun,deficiency,1,2
+不足,noun,scarcity,2,3
+不足,noun,insignificance,2,3
+不足,noun,insignificancy,2,3
+不足,adverb,not enough,1,2
+不足,auxiliary verb,cannot,1,3
+正,adjective,positive,1,1
+正,adjective,correct,2,3
+正,adjective,main,2,3
+正,adverb,just,1,2
+正,adverb,straight,2,3
+正,adverb,upright,2,3
+正,verb,correct,1,3
+正,noun,Chinese first month of year,1,3
+这个,pronoun,this,1,1
+变化,verb,change,1,1
+变化,verb,vary,2,2
+变化,noun,diversification,1,3
+蓝军,noun,???,0,0
+带来,verb,bring,1,1
+一,article,a,1,1
+一,article,one  ,1,1
+一,adjective,single,1,2
+场,noun,field,1,1
+场,noun,scene,2,2
+场,noun,place,2,2
+场,noun,stage,2,2
+场,noun,open space,2,2
+场,noun,courtyard,2,2
+宝贵,adjective,valuable,1,1
+宝贵,adjective,precious,1,1
+宝贵,verb,treasure,1,2
+宝贵,verb,prize,1,2
+宝贵,verb,value,1,2
+宝贵,verb,esteem,1,2
+宝贵,verb,regard,1,2
+宝贵,verb,rate highly,1,2
+宝贵,verb,set store,1,2
+宝贵,verb,set a high value on,1,2
+胜利,noun,victory,1,1
+胜利,noun,triumph,2,2
+胜利,noun,winning,2,2
+胜利,adverb,successfully,1,2
+胜利,verb,conquer,1,3
+胜利,verb,carry on,1,3
+对,preposition,to,1,1
+对,preposition,at  ,2,3
+对,noun,pair,1,2
+对,noun,correct answer,2,3
+对,adjective,right,1,2
+对,adjective,receiving,2,3
+对,particle,yes,1,3
+对,verb,be opposite,1,3
+对,verb,oppose,1,3
+对,verb,answer,1,3
+对,verb,reply,1,3
+对,verb,face,1,3
+对,verb,front,1,3
+对,adverb,orderly,1,3
+这些,pronoun,these,1,1
+对手,noun,opponent,1,1
+对手,noun,adversary,2,2
+对手,noun,antagonist,3,3
+对手,noun,rival,2,2
+对手,noun,competitor,2,2
+对手,noun,match,2,2
+对手,noun,partner,3,3
+对手,noun,mate,3,3
+对手,noun,equal,3,3
+中国,noun,China,0,0
+小伙们,noun,guys?,1,1
+热情,noun,enthusiasm,1,1
+热情,noun,zeal,2,2
+热情,noun,ardor,3,3
+热情,noun,warmth,2,2
+热情,noun,fervor,2,2
+热情,adjective,warm ,1,1
+热情,adjective,enthusiastic,2,2
+热情,adjective,fervent,3,3
+热情,adjective,enthusiastical,3,3
+热情,adjective,warm-hearted,3,3
+由于,preposition,since,1,1
+由于,preposition,because of,2,2
+滑,noun,slip,1,1
+滑,noun,slide,1,1
+滑,noun,cunning,2,3
+滑,verb,slip,1,1
+滑,verb,slide,1,1
+滑,adjective,slippery,1,1
+滑,adjective,smooth,2,2
+滑,adjective,comical,3,3
+滑,adjective,crafty,3,3
+自豪,noun,pride,1,1
+自豪,verb,pride,1,1
