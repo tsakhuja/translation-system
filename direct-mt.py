@@ -6,26 +6,7 @@ import pickle
 #TODO Implement Chinese->English direct translation system
 
 def trained_pos_tagger():
-  try:
-    with open('markov_sinica.pickle', 'r') as fd:
-      trained_pos_tagger.tagger = pickle.load(fd)
-  except:
-    if not trained_pos_tagger.tagger:
-      sents = sinica_treebank.tagged_sents(simplify_tags=True)
-      training = []
-      test = []
-      for i in range(len(sents)):
-        if i % 10:
-          training.append(sents[i])
-        else:
-          test.append(sents[i])
-      trained_pos_tagger.tagger = nltk.HiddenMarkovModelTagger.train(training)
-      print '%.1f %%' % (trained_pos_tagger.tagger.evaluate(test) * 100)
-      # Dump trained tagger
-      # with open('markov_sinica.pickle', 'w') as fd:
-      #   pickle.dump(trained_pos_tagger.tagger, fd)
-
-  return trained_pos_tagger.tagger
+  return trained_pos_tagger.tagger = pickle.load(open("sinica_treebank_brill_aubt.pickle"))
 
 trained_pos_tagger.tagger = None
 
