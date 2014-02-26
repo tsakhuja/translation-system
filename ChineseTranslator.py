@@ -63,7 +63,7 @@ class ChineseTranslator:
 
     tree = nltk.tree.ParentedTree.parse(f.read().translate(None, '\n'))
     f.close()
-    # tree.draw()
+    tree.draw()
 
     return tree
     
@@ -86,7 +86,7 @@ class ChineseTranslator:
         translated_sentence[a_index + 1] = '<delete>'
       elif dnp[0].node == 'QP' and dnp[1].node == 'DEG':
         # Case 2: A preposition B
-        print "case 2"
+        # print "case 2"
         pass
     # Look for case 4
     cps = list(tree.subtrees(filter=lambda x: x.node=='CP'))
@@ -105,6 +105,21 @@ class ChineseTranslator:
         #   a_index += 1
         pass
 
+    # Look for LC>LCP reordering
+    lcps = list(tree.subtrees(filter=lambda x: x.node=='LCP'))
+    for lcp in lcps:
+      lc = list(lcp.subtrees(filter=lambda x: x.node=='LC'))
+      if lcp:
+        lc = lc[0]
+        if lc.left_sibling():
+          vp_indices = [tree.leaves().index(x) for x in lc.leaves()]
+          pp_start_index = tree.leaves().index(lc.left_sibling().leaves()[0])
+          # print "pp reordering"
+          for vp_index in vp_indices:
+            translated_sentence.insert(pp_start_index, translated_sentence[vp_index])
+            del(translated_sentence[vp_index + 1])
+            pp_start_index += 1
+
     # Look for PP:VP reordering: a PP in a parent VP should be repositioned
     # after its sibling VP.
     vps = list(tree.subtrees(filter=lambda x: x.node=='VP'))
@@ -112,7 +127,7 @@ class ChineseTranslator:
       if vp.left_sibling() and vp.left_sibling().node == 'PP':
         vp_indices = [tree.leaves().index(x) for x in vp.leaves()]
         pp_start_index = tree.leaves().index(vp.left_sibling().leaves()[0])
-        print "pp reordering"
+        # print "pp reordering"
         for vp_index in vp_indices:
           translated_sentence.insert(pp_start_index, translated_sentence[vp_index])
           del(translated_sentence[vp_index + 1])
