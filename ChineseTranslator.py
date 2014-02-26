@@ -78,7 +78,7 @@ class ChineseTranslator:
         # Case 3 A's B
         #TODO: oneself's should be his/her/their
         a_index = tree.leaves().index(dnp[0].leaves()[-1])
-        translated_sentence[a_index] += "'s"
+        translated_sentence[a_index] = "their"
         translated_sentence[a_index + 1] = '<delete>'
       elif dnp[0].node == 'ADJP' and dnp[1].node == 'DEG':
         # Case 1: A B
@@ -86,6 +86,7 @@ class ChineseTranslator:
         translated_sentence[a_index + 1] = '<delete>'
       elif dnp[0].node == 'QP' and dnp[1].node == 'DEG':
         # Case 2: A preposition B
+        print "case 2"
         pass
     # Look for case 4
     cps = list(tree.subtrees(filter=lambda x: x.node=='CP'))
@@ -149,7 +150,7 @@ class ChineseTranslator:
     translated_sentence = []
     for token, pos in sentence:
       # Get first char of tag since we only care about simplified tags
-      if pos[0:2] == 'DE':
+      if pos == 'DEC' or pos == 'DEG':
         # Special case for decorator tags
         pos = 'DE'
       elif pos == 'VA':
@@ -163,6 +164,9 @@ class ChineseTranslator:
       elif pos == 'CC' or pos == 'CS':
         # special case for conjunction
         pos = 'CC'
+      elif pos == 'AS' or pos == 'DER':
+      	translated_sentence.append('')
+      	continue
       else: 
         pos = pos[0]
       if dictionary[token].has_key(pos):
