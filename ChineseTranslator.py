@@ -69,6 +69,8 @@ class ChineseTranslator:
     
   def reorder_sentence(self, source_sentence, translated_sentence):
     tree = self.parse_sentence(source_sentence)
+    
+
     # Look for cases 1-3 of this paper: http://nlp.stanford.edu/pubs/wmt09-chang.pdf
     dnps = list(tree.subtrees(filter=lambda x: x.node=='DNP'))
     for dnp in dnps:
@@ -80,19 +82,41 @@ class ChineseTranslator:
         translated_sentence[a_index + 1] = '<delete>'
       elif dnp[0].node == 'ADJP' and dnp[1].node == 'DEG':
         # Case 1: A B
-        print 'case 1'
         a_index = tree.leaves().index(dnp[0].leaves()[-1])
         translated_sentence[a_index + 1] = '<delete>'
       elif dnp[0].node == 'QP' and dnp[1].node == 'DEG':
         # Case 2: A preposition B
-        print 'case 2'
+        pass
     # Look for case 4
     cps = list(tree.subtrees(filter=lambda x: x.node=='CP'))
     for cp in cps:
-      if cp[0].node == 'IP' and cp[-1].node == 'DEC':
-        # Case 4: relative clause: seems like B in front of 
-        print 'case 4'
+      last_vp = list(cp.subtrees(filter=lambda x: x.node == 'VP'))[-1]
+      if cp[0].node == 'IP' and cp[-1].node == 'DEC' and len(list(last_vp.subtrees(filter=lambda x: x.node=='VA' or x.node=='VP'))) > 1:
+        # Case 4: relative clause: seems we should switch the order of A and B and
+        # TODO insert some words to make construction sound more like proper english.
+        # b_indices = [tree.leaves().index(x) for x in cp.right_sibling().leaves()]
+        # de_index = b_indices[0] - 1
+        # a_index = tree.leaves().index(cp[0].leaves()[0])
+        # translated_sentence[de_index] = '<delete>'
+        # for b_index in b_indices:
+        #   translated_sentence.insert(a_index, translated_sentence[b_index])
+        #   del(translated_sentence[b_index + 1])
+        #   a_index += 1
+        pass
 
+    # Look for PP:VP reordering: a PP in a parent VP should be repositioned
+    # after its sibling VP.
+    vps = list(tree.subtrees(filter=lambda x: x.node=='VP'))
+    for vp in vps:
+      if vp.left_sibling() and vp.left_sibling().node == 'PP':
+        vp_indices = [tree.leaves().index(x) for x in vp.leaves()]
+        pp_start_index = tree.leaves().index(vp.left_sibling().leaves()[0])
+        print "pp reordering"
+        for vp_index in vp_indices:
+          translated_sentence.insert(pp_start_index, translated_sentence[vp_index])
+          del(translated_sentence[vp_index + 1])
+          pp_start_index += 1
+        # reposition PP before sibling PP
     return filter(lambda x: x != '<delete>', translated_sentence)
 
 
