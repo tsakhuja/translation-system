@@ -1,0 +1,15 @@
+(IP
+  (NP
+    (NP (NR 赛后))
+    (NP (NN 技术) (NN 统计)))
+  (VP (VV 显示) (PU ，)
+    (IP
+      (NP (NN 该队) (NN 此役))
+      (VP (VV 输)
+        (VP
+          (PP (P 在)
+            (NP (NN 进攻) (NN 效率)))
+          (ADVP (AD 太))
+          (VP (VA 低))))))
+  (PU 。))
+

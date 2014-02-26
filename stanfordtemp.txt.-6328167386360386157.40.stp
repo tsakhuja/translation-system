@@ -1,0 +1,18 @@
+(IP
+  (NP (NT 现在))
+  (VP
+    (ADVP (AD 还))
+    (ADVP (AD 不))
+    (VP (VV 确定) (PU ，)
+      (IP
+        (VP (VV 需要)
+          (VP
+            (LCP
+              (IP
+                (VP (VV 回国)))
+              (LC 之后))
+            (ADVP (AD 再))
+            (VP (VV 做)
+              (NP (NN 决定))))))))
+  (PU 。))
+

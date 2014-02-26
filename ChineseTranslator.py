@@ -54,14 +54,18 @@ class ChineseTranslator:
 
   def parse_sentence(self, sentence):
     sentence = ' '.join(sentence)
-    os.popen("echo '" + sentence + "' > stanfordtemp.txt")
-    subprocess.call("./stanford-parser-full/lexparser-lang.sh Chinese 40 stanford-parser-full/edu/stanford/nlp/models/lexparser/chinesePCFG.ser.gz temp stanfordtemp.txt", shell=True)
+    try:
+      f = open('stanfordtemp.txt.' + str(hash(sentence)) + ".40" + ".stp", "r")
+    except:
+      os.popen("echo '" + sentence + "' > stanfordtemp.txt")
+      subprocess.call("./stanford-parser-full/lexparser-lang.sh Chinese 40 stanford-parser-full/edu/stanford/nlp/models/lexparser/chinesePCFG.ser.gz " + str(hash(sentence)) + " stanfordtemp.txt", shell=True)
+      f = open('stanfordtemp.txt.' + str(hash(sentence))+ ".40" + ".stp", "r")
 
-    f = open('stanfordtemp.txt.temp' + ".40" + ".stp", "r")
     tree = nltk.tree.Tree.parse(f.read().translate(None, '\n'))
     f.close()
 
 
+    # tree.draw()
     print tree
     
 

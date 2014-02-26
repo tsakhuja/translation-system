@@ -1,0 +1,12 @@
+(IP
+  (VP
+    (PP (P 和)
+      (NP (NN 妈妈)))
+    (ADVP (AD 都))
+    (VP (VV 聊) (AS 了)
+      (NP
+        (QP
+          (CLP (M 些)))
+        (NP (PN 什么)))))
+  (PU ？))
+

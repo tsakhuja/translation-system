@@ -1,0 +1,20 @@
+(IP
+  (IP
+    (NP (NN 人))
+    (VP (VV 要)
+      (VP (VV 坚定)
+        (NP
+          (DNP
+            (NP (PN 自己))
+            (DEG 的))
+          (NP (NN 梦想))))))
+  (PU ，)
+  (CP
+    (ADVP (CS 哪怕))
+    (IP
+      (VP (VV 离) (DER 得)
+        (VP
+          (ADVP (AD 很))
+          (VP (VA 远))))))
+  (PU 。))
+

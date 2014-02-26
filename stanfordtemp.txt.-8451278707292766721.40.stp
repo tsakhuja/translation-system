@@ -1,0 +1,24 @@
+(IP
+  (PP (P 由于)
+    (NP (NN 背) (NN 伤) (NN 复发)))
+  (PU ，)
+  (NP (NR 俄罗斯))
+  (VP
+    (VSB (VV 花) (VV 滑))
+    (IP
+      (NP (NN 传奇人物) (NN 普鲁申科))
+      (VP
+        (PP (P 在)
+          (LCP
+            (IP
+              (NP
+                (NP (NN 男单))
+                (ADJP (JJ 短))
+                (NP (NN 节目)))
+              (VP (VV 热身)))
+            (LC 时)))
+        (ADVP (AD 临时))
+        (VP (VV 退)
+          (NP (NN 赛))))))
+  (PU 。))
+

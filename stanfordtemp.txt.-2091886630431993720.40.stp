@@ -1,0 +1,27 @@
+(IP
+  (PP (P 因为)
+    (NP
+      (DNP
+        (LCP
+          (IP
+            (VP (VE 有) (AS 过)
+              (NP (NN 法网) (NN 夺冠))))
+          (LC 后))
+        (DEG 的))
+      (NP (NN 经历))))
+  (PU ，)
+  (ADVP (AD 所以))
+  (NP (NT 现在))
+  (NP (PN 我))
+  (VP
+    (ADVP (AD 更加))
+    (ADVP (AD 不))
+    (VP (VV 喜欢)
+      (NP
+        (CP
+          (IP
+            (VP (PU ‘) (VV 锦上添花) (PU ’)))
+          (DEC 的))
+        (NP (NN 人)))))
+  (PU 。))
+
