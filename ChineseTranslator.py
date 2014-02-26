@@ -61,19 +61,49 @@ class ChineseTranslator:
       subprocess.call("./stanford-parser-full/lexparser-lang.sh Chinese 40 stanford-parser-full/edu/stanford/nlp/models/lexparser/chinesePCFG.ser.gz " + str(hash(sentence)) + " stanfordtemp.txt", shell=True)
       f = open('stanfordtemp.txt.' + str(hash(sentence))+ ".40" + ".stp", "r")
 
-    tree = nltk.tree.Tree.parse(f.read().translate(None, '\n'))
+    tree = nltk.tree.ParentedTree.parse(f.read().translate(None, '\n'))
     f.close()
-
-
     # tree.draw()
-    print tree
+
+    return tree
     
+  def reorder_sentence(self, source_sentence, translated_sentence):
+    tree = self.parse_sentence(source_sentence)
+    # Look for cases 1-3 of this paper: http://nlp.stanford.edu/pubs/wmt09-chang.pdf
+    dnps = list(tree.subtrees(filter=lambda x: x.node=='DNP'))
+    for dnp in dnps:
+      if dnp[0].node == 'NP' and dnp[0][0].node == 'PN' and dnp[1].node == 'DEG':
+        # Case 3 A's B
+        #TODO: oneself's should be his/her/their
+        a_index = tree.leaves().index(dnp[0].leaves()[-1])
+        translated_sentence[a_index] += "'s"
+        translated_sentence[a_index + 1] = '<delete>'
+      elif dnp[0].node == 'ADJP' and dnp[1].node == 'DEG':
+        # Case 1: A B
+        print 'case 1'
+        a_index = tree.leaves().index(dnp[0].leaves()[-1])
+        translated_sentence[a_index + 1] = '<delete>'
+      elif dnp[0].node == 'QP' and dnp[1].node == 'DEG':
+        # Case 2: A preposition B
+        print 'case 2'
+    # Look for case 4
+    cps = list(tree.subtrees(filter=lambda x: x.node=='CP'))
+    for cp in cps:
+      if cp[0].node == 'IP' and cp[-1].node == 'DEC':
+        # Case 4: relative clause: seems like B in front of 
+        print 'case 4'
+
+    return filter(lambda x: x != '<delete>', translated_sentence)
+
+
+    # for node in tree:
+    #   if node
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
-    self.parse_sentence(sentence)
-    return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
+    translated = self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
+    return self.reorder_sentence(sentence, translated)
 
   def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
