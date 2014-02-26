@@ -1,0 +1,18 @@
+(IP
+  (ADVP (AD 然而))
+  (PU ，)
+  (NP
+    (CP
+      (IP
+        (VP
+          (ADVP (AD 一向))
+          (VP (VA 老实))))
+      (DEC 的))
+    (NP (NR 霍华德)))
+  (VP
+    (ADVP (AD 这次))
+    (VP
+      (VRD (VV 可) (VV 算是))
+      (QP (CD 言行不一))))
+  (PU 。))
+

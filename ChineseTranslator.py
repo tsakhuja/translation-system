@@ -1,4 +1,6 @@
 import nltk
+import os
+import subprocess
 from nltk.corpus import sinica_treebank
 from collections import defaultdict
 from nltk.tag.stanford import POSTagger
@@ -49,11 +51,24 @@ class ChineseTranslator:
 
     return d
 
+
+  def parse_sentence(self, sentence):
+    sentence = ' '.join(sentence)
+    os.popen("echo '" + sentence + "' > stanfordtemp.txt")
+    subprocess.call("./stanford-parser-full/lexparser-lang.sh Chinese 40 stanford-parser-full/edu/stanford/nlp/models/lexparser/chinesePCFG.ser.gz temp stanfordtemp.txt", shell=True)
+
+    f = open('stanfordtemp.txt.temp' + ".40" + ".stp", "r")
+    tree = nltk.tree.Tree.parse(f.read().translate(None, '\n'))
+    f.close()
+
+
+    print tree
     
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
+    self.parse_sentence(sentence)
     return self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
 
   def translate_with_pos(self, sentence, tagger, dictionary):
@@ -64,7 +79,7 @@ class ChineseTranslator:
     sentence = tagger.tag(sentence)
     if self.verbose:
       print_sentence = [' '.join(x) for x in sentence]
-      print ' '.join(print_sentence).decode('utf-8')
+      
     if tagger == self.stanford_tagger:
       # correct weird word#POS format
       correct_sentence = []
