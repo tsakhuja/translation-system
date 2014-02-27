@@ -54,6 +54,35 @@ class ChineseTranslator:
 
     return d
 
+  def postprocess_reorder(self, translated_sentence, source_sentence):
+    for ind in xrange(0, len(source_sentence)): #removes quantifier words
+      if (ind > 0 and source_sentence[ind][1][0] == 'M' and source_sentence[ind-1][1] =='CD'):
+        if (ind+1 < len(source_sentence) and source_sentence[ind+1][1][0:2]!='DE'):
+          source_sentence[ind] = "<delete>"
+          translated_sentence[ind] = "<delete>"
+
+
+    translated_sentence = filter(lambda x: x != '<delete>', translated_sentence)
+    source_sentence = filter(lambda x: x != "<delete>", source_sentence)
+
+
+
+    for ind in xrange(0, len(source_sentence)): #removes DE particles before nouns
+      if (ind > 0 and source_sentence[ind][1][0] == 'N' and source_sentence[ind-1][1][0:2]=='DE'):
+        source_sentence[ind-1] = "<delete>"
+        translated_sentence[ind-1] = "<delete>"
+
+    translated_sentence = filter(lambda x: x != "<delete>", translated_sentence)
+    source_sentence = filter(lambda x: x != "<delete>", source_sentence)
+
+    printsentence = ""
+    for a, b in source_sentence:
+      printsentence += a.decode('utf-8') + "#" + b + " "
+    if self.verbose:
+      print printsentence  
+
+    return translated_sentence
+
 
   def parse_sentence(self, sentence):
     sentence = ' '.join(sentence)
@@ -74,7 +103,7 @@ class ChineseTranslator:
     tree = self.parse_sentence(source_sentence)
     if self.verbose:
       print_sentence = [' '.join(x) for x in tree.pos()] 
-      print print_sentence
+      # print print_sentence
 
     # Look for cases 1-3 of this paper: http://nlp.stanford.edu/pubs/wmt09-chang.pdf
     dnps = list(tree.subtrees(filter=lambda x: x.node=='DNP'))
@@ -131,6 +160,7 @@ class ChineseTranslator:
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
     translated = self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
+
     return translated
 
   def translate_with_pos(self, sentence, tagger, dictionary):
@@ -184,6 +214,7 @@ class ChineseTranslator:
           translated_word = token
       translated_sentence.append(translated_word)
 
+    translated_sentence = self.postprocess_reorder(translated_sentence, sentence)
     return translated_sentence
 
   def direct_translate(self, sentence, dictionary):
