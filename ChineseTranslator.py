@@ -48,6 +48,9 @@ class ChineseTranslator:
         elif pos == 'particle':
           pos = 'DE'
         d[tokens[0]][pos].append((tokens[2],int(tokens[3]),int(tokens[4])))
+        for token in d:
+          for pos, pos_trans in d[token].iteritems():
+            d[token][pos] = sorted(d[token][pos], key=lambda tup: tup[1])
 
     return d
 
@@ -63,47 +66,30 @@ class ChineseTranslator:
 
     tree = nltk.tree.ParentedTree.parse(f.read().translate(None, '\n'))
     f.close()
-    tree.draw()
+    # tree.draw()
 
     return tree
     
-  def reorder_sentence(self, source_sentence, translated_sentence):
+  def reorder_sentence(self, source_sentence):
     tree = self.parse_sentence(source_sentence)
-    
+    if self.verbose:
+      print_sentence = [' '.join(x) for x in tree.pos()] 
+      print print_sentence
 
     # Look for cases 1-3 of this paper: http://nlp.stanford.edu/pubs/wmt09-chang.pdf
     dnps = list(tree.subtrees(filter=lambda x: x.node=='DNP'))
     for dnp in dnps:
       if dnp[0].node == 'NP' and dnp[0][0].node == 'PN' and dnp[1].node == 'DEG':
         # Case 3 A's B
-        #TODO: oneself's should be his/her/their
-        a_index = tree.leaves().index(dnp[0].leaves()[-1])
-        translated_sentence[a_index] = "their"
-        translated_sentence[a_index + 1] = '<delete>'
+        a_index = dnp[0].treeposition()
+        dnp[0][dnp[0].leaf_treeposition(0)] = "their"
+        # tree[a_index].leaves()[-1] = "their"
+        de_index = dnp[1].treeposition()
+        del tree[de_index]
       elif dnp[0].node == 'ADJP' and dnp[1].node == 'DEG':
-        # Case 1: A B
-        a_index = tree.leaves().index(dnp[0].leaves()[-1])
-        translated_sentence[a_index + 1] = '<delete>'
-      elif dnp[0].node == 'QP' and dnp[1].node == 'DEG':
-        # Case 2: A preposition B
-        # print "case 2"
-        pass
-    # Look for case 4
-    cps = list(tree.subtrees(filter=lambda x: x.node=='CP'))
-    for cp in cps:
-      last_vp = list(cp.subtrees(filter=lambda x: x.node == 'VP'))[-1]
-      if cp[0].node == 'IP' and cp[-1].node == 'DEC' and len(list(last_vp.subtrees(filter=lambda x: x.node=='VA' or x.node=='VP'))) > 1:
-        # Case 4: relative clause: seems we should switch the order of A and B and
-        # TODO insert some words to make construction sound more like proper english.
-        # b_indices = [tree.leaves().index(x) for x in cp.right_sibling().leaves()]
-        # de_index = b_indices[0] - 1
-        # a_index = tree.leaves().index(cp[0].leaves()[0])
-        # translated_sentence[de_index] = '<delete>'
-        # for b_index in b_indices:
-        #   translated_sentence.insert(a_index, translated_sentence[b_index])
-        #   del(translated_sentence[b_index + 1])
-        #   a_index += 1
-        pass
+        # Case 1: A B - delete DE
+        de_index = dnp[1].treeposition()
+        del tree[de_index]
 
     # Look for LC>LCP reordering
     lcps = list(tree.subtrees(filter=lambda x: x.node=='LCP'))
@@ -112,56 +98,55 @@ class ChineseTranslator:
       if lcp:
         lc = lc[0]
         if lc.left_sibling():
-          vp_indices = [tree.leaves().index(x) for x in lc.leaves()]
-          pp_start_index = tree.leaves().index(lc.left_sibling().leaves()[0])
-          # print "pp reordering"
-          for vp_index in vp_indices:
-            translated_sentence.insert(pp_start_index, translated_sentence[vp_index])
-            del(translated_sentence[vp_index + 1])
-            pp_start_index += 1
+          # Swap order of LC and left sibling
+          parent = lc.parent()
+          sib = lc.left_sibling()
+          lc_index = lc.treeposition()
+          sib_index = sib.treeposition()
+          del tree[lc_index]
+          del tree[sib_index]
+          parent.insert(sib_index[-1], lc)
+          parent.insert(lc_index[-1], sib)
+
 
     # Look for PP:VP reordering: a PP in a parent VP should be repositioned
     # after its sibling VP.
     vps = list(tree.subtrees(filter=lambda x: x.node=='VP'))
     for vp in vps:
       if vp.left_sibling() and vp.left_sibling().node == 'PP':
-        vp_indices = [tree.leaves().index(x) for x in vp.leaves()]
-        pp_start_index = tree.leaves().index(vp.left_sibling().leaves()[0])
-        # print "pp reordering"
-        for vp_index in vp_indices:
-          translated_sentence.insert(pp_start_index, translated_sentence[vp_index])
-          del(translated_sentence[vp_index + 1])
-          pp_start_index += 1
-        # reposition PP before sibling PP
-    return filter(lambda x: x != '<delete>', translated_sentence)
+        # Remove PP sibling
+        parent = vp.parent()
+        pp = vp.left_sibling()
+        vp_index = vp.treeposition()
+        pp_index = pp.treeposition()
+        del tree[vp_index]
+        del tree[pp_index]
+        parent.insert(pp_index[-1], vp)
+        parent.insert(vp_index[-1], pp)
 
+    return tree.pos()
 
-    # for node in tree:
-    #   if node
 
   def translate(self, sentence):
     """This is the function the client should call to translate a sentence"""
     # return self.direct_translate(sentence, self.dictionary)
     translated = self.translate_with_pos(sentence, self.stanford_tagger, self.dictionary)
-    return self.reorder_sentence(sentence, translated)
+    return translated
 
   def translate_with_pos(self, sentence, tagger, dictionary):
     """ 
     * Translates sentence in a POS-aware fashion.
     * sentence is a list of words or characters
     """
-    sentence = tagger.tag(sentence)
-    if self.verbose:
-      print_sentence = [' '.join(x) for x in sentence]
+    sentence = self.reorder_sentence(sentence)
       
-    if tagger == self.stanford_tagger:
-      # correct weird word#POS format
-      correct_sentence = []
-      for blank, wordpos in sentence:
-        wordsplit = wordpos.split('#')
-        correct_sentence.append((wordsplit[0], wordsplit[1]))
-      sentence = correct_sentence
-    # print sentence
+    # if tagger == self.stanford_tagger:
+    #   # correct weird word#POS format
+    #   correct_sentence = []
+    #   for blank, wordpos in sentence:
+    #     wordsplit = wordpos.split('#')
+    #     correct_sentence.append((wordsplit[0], wordsplit[1]))
+    #   sentence = correct_sentence
     translated_sentence = []
     for token, pos in sentence:
       # Get first char of tag since we only care about simplified tags
