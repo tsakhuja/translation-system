@@ -1,0 +1,19 @@
+(IP
+  (VP
+    (ADVP (AD 正是))
+    (DFL (DT 这个) (NN 变化))
+    (PU ，)
+    (PP (P 为)
+      (NP
+        (ADJP (JJ 蓝))
+        (NP (NN 军))))
+    (VP (VV 带来) (AS 了)
+      (NP
+        (QP (CD 一)
+          (CLP (M 场)))
+        (DNP
+          (ADJP (JJ 宝贵))
+          (DEG 的))
+        (NP (NN 胜利)))))
+  (PU 。))
+

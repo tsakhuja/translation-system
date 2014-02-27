@@ -1,0 +1,37 @@
+(IP
+  (ADVP (AD 正是))
+  (NP
+    (DP (DT 这个))
+    (NP (NN 变化)))
+  (PU ，)
+  (VP
+    (PP (P 为)
+      (NP
+        (ADJP (JJ 蓝))
+        (NP (NN 军))))
+    (VP (VV 带来) (AS 了)
+      (NP
+        (QP (CD 一)
+          (CLP (M 场)))
+        (DNP
+          (ADJP (JJ 宝贵))
+          (DEG 的))
+        (NP (NN 胜利)))))
+  (PU 。))
+
+advmod(带来-8, 正是-1)
+det(变化-3, 这个-2)
+nsubj(带来-8, 变化-3)
+punct(带来-8, ，-4)
+prep(带来-8, 为-5)
+amod(军-7, 蓝-6)
+pobj(为-5, 军-7)
+root(ROOT-0, 带来-8)
+asp(带来-8, 了-9)
+nummod(场-11, 一-10)
+clf(胜利-14, 场-11)
+assmod(胜利-14, 宝贵-12)
+assm(宝贵-12, 的-13)
+dobj(带来-8, 胜利-14)
+punct(带来-8, 。-15)
+

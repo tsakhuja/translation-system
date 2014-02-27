@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import nltk
 import os
 import subprocess
@@ -5,6 +6,7 @@ from nltk.corpus import sinica_treebank
 from collections import defaultdict
 from nltk.tag.stanford import POSTagger
 import pickle
+import string
 
 #TODO Implement Chinese->English direct translation system
 class ChineseTranslator:
@@ -15,6 +17,7 @@ class ChineseTranslator:
     self.dictionary = self.load_dictionary('data/zhen-dict.csv')
     self.pos_tagger = self.trained_pos_tagger();
     self.stanford_tagger = POSTagger('chinese-distsim.tagger', 'stanford-postagger.jar') 
+    self.stanford_english_tagger = POSTagger('english-bidirectional-distsim.tagger', 'stanford-postagger.jar') 
 
   def trained_pos_tagger(self):
     return pickle.load(open("sinica_treebank_brill_aubt.pickle"))
@@ -72,7 +75,7 @@ class ChineseTranslator:
         source_sentence[ind-1] = "<delete>"
         translated_sentence[ind-1] = "<delete>"
 
-    translated_sentence = filter(lambda x: x != "<delete>", translated_sentence)
+    translated_sentence = filter(lambda x: x != "<delete>" and x != '', translated_sentence)
     source_sentence = filter(lambda x: x != "<delete>", source_sentence)
 
     printsentence = ""
@@ -80,6 +83,40 @@ class ChineseTranslator:
       printsentence += a.decode('utf-8') + "#" + b + " "
     if self.verbose:
       print printsentence  
+
+    return translated_sentence
+
+  def add_subject(self, input_sentence):
+    # copied from def translate_with_pos(...) - may need to modify
+    sentence = self.stanford_english_tagger.tag(input_sentence)
+    if self.verbose:
+      print_sentence = [' '.join(x) for x in sentence]
+      
+    translated_sentence = []
+    lastNPinSent = ''
+    lastNPinClause = ''
+
+    for word, pos in sentence:
+      # If POS tag is noun, note this word, add to translated_sentence
+      if (pos == 'NN' or pos == 'NNS' or pos == 'NNP' or pos == 'NNPS' or pos == 'PRP') and word not in string.punctuation:
+        lastNPinSent = word
+        lastNPinClause = word
+        translated_sentence.append(word)
+      # Verb with a preceding noun in current clause: append verb to translated_sentence
+      elif (pos == 'VB' or pos == 'VBD' or pos == 'VBG' or pos == 'VBN' or pos == 'VBP' or pos == 'VBZ' or pos == 'WP' or pos == 'MD') and lastNPinClause != '':
+        translated_sentence.append(word)
+      # If word is verb and clause is missing a subject, append the last previous noun before verb
+      elif (pos == 'VB' or pos == 'VBD' or pos == 'VBG' or pos == 'VBN' or pos == 'VBP' or pos == 'VBZ' or pos == 'WP' or pos == 'MD') and lastNPinClause == '' and lastNPinSent != '':
+        translated_sentence.append(lastNPinSent)
+        lastNPinClause = lastNPinSent
+        translated_sentence.append(word)
+      # If word is puncutuation (,|:|.|?|;), reset noun of current clause to none; append PU to translated_sentence
+      elif word == ',' or word == ':' or word == '.' or word == '?' or word == ';':
+        lastNPinClause = ''
+        translated_sentence.append(word)
+      # Append all other phrases
+      else:
+        translated_sentence.append(word)
 
     return translated_sentence
 
@@ -214,7 +251,11 @@ class ChineseTranslator:
           translated_word = token
       translated_sentence.append(translated_word)
 
+    translated_sentence = [x if x != '，' else ',' for x in translated_sentence]
+    translated_sentence = [x if x != '。' else '.' for x in translated_sentence]
+    translated_sentence = [x if x != '、' else ',' for x in translated_sentence]
     translated_sentence = self.postprocess_reorder(translated_sentence, sentence)
+    translated_sentence = self.add_subject(translated_sentence)
     return translated_sentence
 
   def direct_translate(self, sentence, dictionary):

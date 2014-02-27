@@ -1,0 +1,390 @@
+(IP
+  (ADVP (AD 但))
+  (PP (P 在)
+    (NP
+      (CP
+        (IP
+          (VP
+            (NP (NT ２０１４年))
+            (VP (VV 创造) (AS 了)
+              (NP
+                (QP (CD １３))
+                (NP (NN 连胜))))))
+        (DEC 的))
+      (NP (NN 李娜))))
+  (PU ，)
+  (VP
+    (ADVP (AD 还是))
+    (VP (VV 应该)
+      (VP
+        (PP (P 为)
+          (NP
+            (DNP
+              (NP (PN 自己))
+              (DEG 的))
+            (ADJP (JJ 出色))
+            (NP (NN 表现))))
+        (VP (VV 感到)
+          (NP (NN 自豪))))))
+  (PU 。))
+
+advmod(感到-18, 但-1)
+prep(感到-18, 在-2)
+tmod(创造-4, ２０１４年-3)
+rcmod(李娜-9, 创造-4)
+asp(创造-4, 了-5)
+nummod(连胜-7, １３-6)
+dobj(创造-4, 连胜-7)
+cpm(创造-4, 的-8)
+pobj(在-2, 李娜-9)
+punct(感到-18, ，-10)
+advmod(感到-18, 还是-11)
+mmod(感到-18, 应该-12)
+prep(感到-18, 为-13)
+assmod(表现-17, 自己-14)
+assm(自己-14, 的-15)
+amod(表现-17, 出色-16)
+pobj(为-13, 表现-17)
+root(ROOT-0, 感到-18)
+dobj(感到-18, 自豪-19)
+punct(感到-18, 。-20)
+
+(IP
+  (ADVP (AD 然而))
+  (PU ，)
+  (NP
+    (CP
+      (IP
+        (VP
+          (ADVP (AD 一向))
+          (VP (VA 老实))))
+      (DEC 的))
+    (NP (NR 霍华德)))
+  (VP
+    (ADVP (AD 这次))
+    (VP
+      (VRD (VV 可) (VV 算是))
+      (QP (CD 言行不一))))
+  (PU 。))
+
+advmod(可-8, 然而-1)
+punct(可-8, ，-2)
+advmod(老实-4, 一向-3)
+rcmod(霍华德-6, 老实-4)
+cpm(老实-4, 的-5)
+nsubj(可-8, 霍华德-6)
+advmod(可-8, 这次-7)
+root(ROOT-0, 可-8)
+rcomp(可-8, 算是-9)
+dep(可-8, 言行不一-10)
+punct(可-8, 。-11)
+
+(IP
+  (NP
+    (CP
+      (IP
+        (NP
+          (ADJP (JJ 特大))
+          (NP (NN 城市)))
+        (VP
+          (ADVP (AD 更))
+          (VP (VA 完备))))
+      (DEC 的))
+    (NP (NN 基础) (NN 设施)))
+  (VP
+    (PP (P 和)
+      (NP
+        (DNP
+          (ADJP
+            (ADVP (AD 更))
+            (ADJP (JJ 大)))
+          (DEG 的))
+        (NP (NN 消费) (NN 市场))))
+    (PU ，)
+    (ADVP (AD 将))
+    (VP
+      (PP (P 为)
+        (NP (NR 冬奥会)))
+      (VP (VV 带来)
+        (NP
+          (CP
+            (IP
+              (VP
+                (ADVP (AD 更))
+                (VP (VA 好))))
+            (DEC 的))
+          (NP (NN 效益))))))
+  (PU 。))
+
+amod(城市-2, 特大-1)
+nsubj(完备-4, 城市-2)
+advmod(完备-4, 更-3)
+rcmod(设施-7, 完备-4)
+cpm(完备-4, 的-5)
+nn(设施-7, 基础-6)
+nsubj(带来-18, 设施-7)
+prep(带来-18, 和-8)
+advmod(大-10, 更-9)
+assmod(市场-13, 大-10)
+assm(大-10, 的-11)
+nn(市场-13, 消费-12)
+pobj(和-8, 市场-13)
+punct(带来-18, ，-14)
+advmod(带来-18, 将-15)
+prep(带来-18, 为-16)
+pobj(为-16, 冬奥会-17)
+root(ROOT-0, 带来-18)
+advmod(好-20, 更-19)
+rcmod(效益-22, 好-20)
+cpm(好-20, 的-21)
+dobj(带来-18, 效益-22)
+punct(带来-18, 。-23)
+
+(IP
+  (NP (NT 现在))
+  (VP
+    (ADVP (AD 还))
+    (ADVP (AD 不))
+    (VP (VV 确定) (PU ，)
+      (IP
+        (VP (VV 需要)
+          (VP
+            (LCP
+              (IP
+                (VP (VV 回国)))
+              (LC 之后))
+            (ADVP (AD 再))
+            (VP (VV 做)
+              (NP (NN 决定))))))))
+  (PU 。))
+
+tmod(确定-4, 现在-1)
+advmod(确定-4, 还-2)
+neg(确定-4, 不-3)
+root(ROOT-0, 确定-4)
+punct(确定-4, ，-5)
+mmod(做-10, 需要-6)
+lccomp(之后-8, 回国-7)
+loc(做-10, 之后-8)
+advmod(做-10, 再-9)
+ccomp(确定-4, 做-10)
+dobj(做-10, 决定-11)
+punct(确定-4, 。-12)
+xsubj(做-10, 现在-1)
+
+(IP
+  (PP (P 由于)
+    (NP (NN 背) (NN 伤) (NN 复发)))
+  (PU ，)
+  (NP (NR 俄罗斯))
+  (VP
+    (VSB (VV 花) (VV 滑))
+    (IP
+      (NP (NN 传奇人物) (NN 普鲁申科))
+      (VP
+        (PP (P 在)
+          (LCP
+            (IP
+              (NP
+                (NP (NN 男单))
+                (ADJP (JJ 短))
+                (NP (NN 节目)))
+              (VP (VV 热身)))
+            (LC 时)))
+        (ADVP (AD 临时))
+        (VP (VV 退)
+          (NP (NN 赛))))))
+  (PU 。))
+
+prep(退-18, 由于-1)
+nn(复发-4, 背-2)
+nn(复发-4, 伤-3)
+pobj(由于-1, 复发-4)
+punct(退-18, ，-5)
+nsubj(退-18, 俄罗斯-6)
+dep(滑-8, 花-7)
+dep(退-18, 滑-8)
+nn(普鲁申科-10, 传奇人物-9)
+nsubj(退-18, 普鲁申科-10)
+prep(退-18, 在-11)
+nn(节目-14, 男单-12)
+amod(节目-14, 短-13)
+nsubj(热身-15, 节目-14)
+lccomp(时-16, 热身-15)
+plmod(在-11, 时-16)
+advmod(退-18, 临时-17)
+root(ROOT-0, 退-18)
+dobj(退-18, 赛-19)
+punct(退-18, 。-20)
+
+(IP
+  (NP
+    (NP (NR 赛后))
+    (NP (NN 技术) (NN 统计)))
+  (VP (VV 显示) (PU ，)
+    (IP
+      (NP (NN 该队) (NN 此役))
+      (VP (VV 输)
+        (VP
+          (PP (P 在)
+            (NP (NN 进攻) (NN 效率)))
+          (ADVP (AD 太))
+          (VP (VA 低))))))
+  (PU 。))
+
+nn(统计-3, 赛后-1)
+nn(统计-3, 技术-2)
+nsubj(显示-4, 统计-3)
+root(ROOT-0, 显示-4)
+punct(显示-4, ，-5)
+nn(此役-7, 该队-6)
+nsubj(低-13, 此役-7)
+mmod(低-13, 输-8)
+prep(低-13, 在-9)
+nn(效率-11, 进攻-10)
+pobj(在-9, 效率-11)
+advmod(低-13, 太-12)
+ccomp(显示-4, 低-13)
+punct(显示-4, 。-14)
+
+(IP
+  (PP (P 因为)
+    (NP
+      (DNP
+        (LCP
+          (IP
+            (VP (VE 有) (AS 过)
+              (NP (NN 法网) (NN 夺冠))))
+          (LC 后))
+        (DEG 的))
+      (NP (NN 经历))))
+  (PU ，)
+  (ADVP (AD 所以))
+  (NP (NT 现在))
+  (NP (PN 我))
+  (VP
+    (ADVP (AD 更加))
+    (ADVP (AD 不))
+    (VP (VV 喜欢)
+      (NP
+        (CP
+          (IP
+            (VP (PU ‘) (VV 锦上添花) (PU ’)))
+          (DEC 的))
+        (NP (NN 人)))))
+  (PU 。))
+
+prep(喜欢-15, 因为-1)
+lccomp(后-6, 有-2)
+asp(有-2, 过-3)
+nn(夺冠-5, 法网-4)
+dobj(有-2, 夺冠-5)
+assmod(经历-8, 后-6)
+assm(后-6, 的-7)
+pobj(因为-1, 经历-8)
+punct(喜欢-15, ，-9)
+advmod(喜欢-15, 所以-10)
+tmod(喜欢-15, 现在-11)
+nsubj(喜欢-15, 我-12)
+advmod(喜欢-15, 更加-13)
+neg(喜欢-15, 不-14)
+root(ROOT-0, 喜欢-15)
+punct(锦上添花-17, ‘-16)
+rcmod(人-20, 锦上添花-17)
+punct(锦上添花-17, ’-18)
+cpm(锦上添花-17, 的-19)
+dobj(喜欢-15, 人-20)
+punct(喜欢-15, 。-21)
+
+(IP
+  (IP
+    (NP (NN 人))
+    (VP (VV 要)
+      (VP (VV 坚定)
+        (NP
+          (DNP
+            (NP (PN 自己))
+            (DEG 的))
+          (NP (NN 梦想))))))
+  (PU ，)
+  (CP
+    (ADVP (CS 哪怕))
+    (IP
+      (VP (VV 离) (DER 得)
+        (VP
+          (ADVP (AD 很))
+          (VP (VA 远))))))
+  (PU 。))
+
+nsubj(坚定-3, 人-1)
+mmod(坚定-3, 要-2)
+root(ROOT-0, 坚定-3)
+assmod(梦想-6, 自己-4)
+assm(自己-4, 的-5)
+dobj(坚定-3, 梦想-6)
+punct(坚定-3, ，-7)
+advmod(远-12, 哪怕-8)
+dep(远-12, 离-9)
+dep(远-12, 得-10)
+advmod(远-12, 很-11)
+dep(坚定-3, 远-12)
+punct(坚定-3, 。-13)
+
+(IP
+  (VP
+    (PP (P 和)
+      (NP (NN 妈妈)))
+    (ADVP (AD 都))
+    (VP (VV 聊) (AS 了)
+      (NP
+        (QP
+          (CLP (M 些)))
+        (NP (PN 什么)))))
+  (PU ？))
+
+prep(聊-4, 和-1)
+pobj(和-1, 妈妈-2)
+advmod(聊-4, 都-3)
+root(ROOT-0, 聊-4)
+asp(聊-4, 了-5)
+clf(什么-7, 些-6)
+dobj(聊-4, 什么-7)
+punct(聊-4, ？-8)
+
+(IP
+  (ADVP (AD 正是))
+  (NP
+    (DP (DT 这个))
+    (NP (NN 变化)))
+  (PU ，)
+  (VP
+    (PP (P 为)
+      (NP
+        (ADJP (JJ 蓝))
+        (NP (NN 军))))
+    (VP (VV 带来) (AS 了)
+      (NP
+        (QP (CD 一)
+          (CLP (M 场)))
+        (DNP
+          (ADJP (JJ 宝贵))
+          (DEG 的))
+        (NP (NN 胜利)))))
+  (PU 。))
+
+advmod(带来-8, 正是-1)
+det(变化-3, 这个-2)
+nsubj(带来-8, 变化-3)
+punct(带来-8, ，-4)
+prep(带来-8, 为-5)
+amod(军-7, 蓝-6)
+pobj(为-5, 军-7)
+root(ROOT-0, 带来-8)
+asp(带来-8, 了-9)
+nummod(场-11, 一-10)
+clf(胜利-14, 场-11)
+assmod(胜利-14, 宝贵-12)
+assm(宝贵-12, 的-13)
+dobj(带来-8, 胜利-14)
+punct(带来-8, 。-15)
+
